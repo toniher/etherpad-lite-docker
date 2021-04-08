@@ -6,7 +6,7 @@
 
 FROM node:10-buster-slim
 
-ENV ETHERPAD_VERSION 1.8.6
+ENV ETHERPAD_VERSION 1.8.13
 
 LABEL maintainer="Etherpad team, https://github.com/ether/etherpad-lite"
 
@@ -16,7 +16,6 @@ LABEL maintainer="Etherpad team, https://github.com/ether/etherpad-lite"
 #
 # EXAMPLE:
 #   ETHERPAD_PLUGINS="ep_codepad ep_author_neat"
-ARG ETHERPAD_PLUGINS="ep_adminpads"
 
 # By default, Etherpad container is built and run in "production" mode. This is
 # leaner (development dependencies are not installed) and runs faster (among
@@ -58,6 +57,7 @@ RUN bin/installDeps.sh && \
 #
 # Bash trick: in the for loop ${ETHERPAD_PLUGINS} is NOT quoted, in order to be
 # able to split at spaces.
+ARG ETHERPAD_PLUGINS="ep_adminpads2 ep_align ep_headings2 ep_table_of_contents ep_markdown ep_author_hover ep_image_upload ep_comments_page ep_mediawiki ep_who_did_what ep_real_time_chat"
 RUN for PLUGIN_NAME in ${ETHERPAD_PLUGINS}; do npm install "${PLUGIN_NAME}"; done
 
 # Copy the configuration file.
